@@ -1,0 +1,39 @@
+infer_with: GIM
+num_replicates: 1
+blocklen: 500
+blocks_per_state: 20_000
+mutation_rate: 1.0e-9
+recombination_rate: 0
+thetas:
+  distribution: Gamma
+  epoch1:
+    pop1:
+      [2, 3]
+    pop2:
+      [2, 3]
+  epoch2:
+    pop1:
+      [2, 3]
+    pop2:
+      [2, 3]
+  epoch3:
+    pop1:
+      [2, 3]
+migration_rates:
+  distribution: Uniform
+  epoch1:
+    rate1:
+      [1.0e-10, 1.0e-5]
+    rate2:
+      [1.0e-10, 1.0e-5]
+  epoch2:
+    rate1:
+      [1.0e-10, 1.0e-5]
+    rate2:
+      [1.0e-10, 1.0e-5]
+epoch_durations:
+  distribution: Gamma
+  epoch1:
+    [2, 3]
+  epoch2:
+    [2, 3]
