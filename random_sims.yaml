@@ -1,5 +1,5 @@
 infer_with: GIM
-num_replicates: 1
+num_replicates: 100
 blocklen: 500
 blocks_per_state: 20_000
 mutation_rate: 1.0e-9

@@ -14,7 +14,7 @@ from dismal.models import three_epoch_gim, three_epoch_iim, three_epoch_sec, thr
 
 parser = ArgumentParser()
 parser.add_argument("--yaml-spec", help="YAML specifying parameters for random simulations")
-parser.add_argument("--threads", help="Number of threads to use; use -1 for all threads. Defaults to 1 (no parallelisation).", default=1)
+parser.add_argument("--threads", help="Number of threads to use; use -1 for all threads. Defaults to 1 (no parallelisation).", default=1, type=int)
 parser.add_argument("--simulation-id", help="Simulation ID, either to control name of simulation or to rerun failed sim. Default is {DATE}_{UNIQUE_HEX}", default=None)
 args = parser.parse_args()
 
@@ -57,7 +57,7 @@ def simulate(yaml_spec, outfiles, threads):
                     yaml_spec["blocklen"], yaml_spec["mutation_rate"], 
                     blocks_per_state=yaml_spec["blocks_per_state"], recombination_rate=yaml_spec["recombination_rate"])
 
-    sims = Parallel(n_jobs=threads)(
+    sims = Parallel(n_jobs=threads, prefer="threads")(
         delayed(_sim_wrapper)(yaml_spec) 
         for _ in tqdm.tqdm(range(yaml_spec["num_replicates"])))
     
@@ -98,7 +98,7 @@ def infer(infiles, outfile, yaml_spec, threads):
     s1s, s2s, s3s = [np.load(infiles[i])["arr_0"] for i in range(3)]
     assert s1s.shape[0] == s2s.shape[0] == s3s.shape[0]
     assert s1s.shape[0] == yaml_spec["num_replicates"]
-    
+
     if threads == 1:
         mods = [mod.fit(s1s[i], s2s[i], s3s[i], 
                         yaml_spec["blocklen"], None, None, None, False) 
