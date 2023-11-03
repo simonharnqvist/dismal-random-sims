@@ -1,7 +1,7 @@
 from scipy import stats
 import yaml
 import numpy as np
-from simulate import Simulation
+from dismal_random_sims.simulate import Simulation
 
 def random_param_value(distribution, distr_params):
    """Sample a random parameter value from a distribution"""

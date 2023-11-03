@@ -1,0 +1,10 @@
+setup.py
+dismal_random_sims/functions.py
+dismal_random_sims/random_simulation_pipeline.py
+dismal_random_sims/simulate.py
+dismal_random_sims.egg-info/PKG-INFO
+dismal_random_sims.egg-info/SOURCES.txt
+dismal_random_sims.egg-info/dependency_links.txt
+dismal_random_sims.egg-info/entry_points.txt
+dismal_random_sims.egg-info/requires.txt
+dismal_random_sims.egg-info/top_level.txt

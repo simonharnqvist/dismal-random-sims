@@ -1,0 +1,8 @@
+dismal@ git+https://github.com/simonharnqvist/DISMaL.git#egg=dismal
+pyyaml
+numpy
+scipy
+msprime
+ruffus
+joblib
+tqdm

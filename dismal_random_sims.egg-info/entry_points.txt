@@ -1,0 +1,2 @@
+[console_scripts]
+dismal-random-sims = dismal_random_sims.random_simulation_pipeline:main

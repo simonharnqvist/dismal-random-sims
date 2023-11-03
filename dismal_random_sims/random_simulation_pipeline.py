@@ -8,8 +8,8 @@ from argparse import ArgumentParser
 import tqdm
 import math
 import numpy as np
-from simulate import Simulation
-from functions import random_param_value
+from dismal_random_sims.simulate import Simulation
+from dismal_random_sims.functions import random_param_value
 from dismal.models import three_epoch_gim, three_epoch_iim, three_epoch_sec, three_epoch_iso
 
 parser = ArgumentParser()
@@ -99,16 +99,21 @@ def infer(infiles, outfile, yaml_spec, threads):
     assert s1s.shape[0] == s2s.shape[0] == s3s.shape[0]
     assert s1s.shape[0] == yaml_spec["num_replicates"]
 
-    if threads == 1:
-        mods = [mod.fit(s1s[i], s2s[i], s3s[i], 
-                        yaml_spec["blocklen"], None, None, None, False) 
-                        for i in tqdm.tqdm(range(yaml_spec["num_replicates"]))]
-    else:
-        mods = Parallel(n_jobs=threads, prefer="threads")(
-        delayed(mod.fit)(s1s[i], s2s[i], s3s[i], 
-                         yaml_spec["blocklen"], None, None, None, False) 
-                         for i in tqdm.tqdm(range(yaml_spec["num_replicates"])))
-    
+    try:
+
+        if threads == 1:
+            mods = [mod.fit(s1s[i], s2s[i], s3s[i], 
+                            yaml_spec["blocklen"], None, None, None, False) 
+                            for i in tqdm.tqdm(range(yaml_spec["num_replicates"]))]
+        else:
+            mods = Parallel(n_jobs=threads, prefer="threads")(
+            delayed(mod.fit)(s1s[i], s2s[i], s3s[i], 
+                            yaml_spec["blocklen"], None, None, None, False) 
+                            for i in tqdm.tqdm(range(yaml_spec["num_replicates"])))
+            
+    except Exception:
+        pass
+        
     results = [{
             "thetas_block": list(mod.thetas_block),
             "thetas_site": list(mod.thetas_site),
@@ -126,8 +131,11 @@ def infer(infiles, outfile, yaml_spec, threads):
         json.dump(results, f)
 
 
-if __name__ == "__main__":
+def main():
     pipeline_run()
+
+if __name__ == "__main__":
+    main()
         
 
 # @merge

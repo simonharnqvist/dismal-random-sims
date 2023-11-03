@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: dismal-random-sims
+Version: 0.0.0
+Requires-Dist: dismal@ git+https://github.com/simonharnqvist/DISMaL.git#egg=dismal
+Requires-Dist: pyyaml
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: msprime
+Requires-Dist: ruffus
+Requires-Dist: joblib
+Requires-Dist: tqdm
