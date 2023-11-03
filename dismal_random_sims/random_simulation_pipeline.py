@@ -12,6 +12,16 @@ from dismal_random_sims.simulate import Simulation
 from dismal_random_sims.functions import random_param_value
 from dismal.models import three_epoch_gim, three_epoch_iim, three_epoch_sec, three_epoch_iso
 
+
+# new pipeline design:
+# 1. Read YAML
+# 2. @transform YAML into random parameter values for n replicates; save as npy where each row is a parameter set
+# 3. @split into each simulation replicate, saving a compressed simulation.npz ON SCRATCH containing [params, s1, s2, s3]
+# 4. @transform each replicate into a compressed modelled.npz containing [true_params, inferred_params, s1, s2, s3, expected_s1, expected_s2, expected_s3]
+# 5. @merge all outputs into single  
+#
+# cleanup: delete files on scratch
+
 parser = ArgumentParser()
 parser.add_argument("--yaml-spec", help="YAML specifying parameters for random simulations")
 parser.add_argument("--threads", help="Number of threads to use; use -1 for all threads. Defaults to 1 (no parallelisation).", default=1, type=int)
